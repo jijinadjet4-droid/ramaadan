@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأسبوع الأول من التحدي 📅 - مكتبتي الرمضانية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Tajawal", sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* شريط التنقل */
+        .nav-bar {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-3px);
+        }
+
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            flex-grow: 1;
+        }
+
+        /* ترويسة التصنيف */
+        .category-header {
+            text-align: center;
+            padding: 35px 20px;
+            color: white;
+            margin-bottom: 25px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        .category-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+
+        .category-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* حاوية الأيام */
+        .days-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* بطاقة اليوم */
+        .day-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            border-color: #8B4513;
+        }
+
+        .day-number {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: #f8f9fa;
+            color: #8B4513;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            border: 2px solid #e9ecef;
+        }
+
+        .day-content {
+            font-size: 1.4rem;
+            line-height: 1.9;
+            color: #2d3436;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 500;
+            padding: 0 10px;
+        }
+
+        .day-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .day-info {
+            color: #666;
+            font-size: 0.95rem;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 12px 20px;
+            border-radius: 10px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* زر التأشير */
+        .mark-completed {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
+        }
+
+        .mark-completed:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.4);
+        }
+
+        .mark-completed.completed {
+            background: linear-gradient(135deg, #2E8B57, #3CB371);
+        }
+
+        /* شريط تقدم الأسبوع */
+        .week-progress {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 800px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border: 2px solid #e9ecef;
+            text-align: center;
+        }
+
+        .progress-text {
+            font-size: 1.1rem;
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8B4513, #A0522D);
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        /* التذييل */
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            color: #8B4513;
+            font-size: 1rem;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+            background: white;
+        }
+
+        /* تجاوب الجوال */
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+            
+            .nav-bar {
+                padding: 15px;
+            }
+            
+            .category-header {
+                padding: 30px 15px;
+                border-radius: 0 0 30px 30px;
+                margin-bottom: 20px;
+            }
+            
+            .category-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .category-header p {
+                font-size: 1rem;
+            }
+            
+            .days-container {
+                padding: 0 15px 30px;
+            }
+            
+            .day-card {
+                padding: 25px 20px;
+                border-radius: 18px;
+            }
+            
+            .day-number {
+                top: 12px;
+                left: 15px;
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            
+            .day-content {
+                font-size: 1.2rem;
+                line-height: 1.7;
+                margin-bottom: 20px;
+                padding: 0;
+            }
+            
+            .day-details {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 20px;
+            }
+            
+            .day-info {
+                padding: 15px;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+            
+            .mark-completed {
+                width: 100%;
+                justify-content: center;
+                padding: 16px;
+                font-size: 1.1rem;
+            }
+            
+            .week-progress {
+                padding: 20px;
+                margin: 20px 15px;
+            }
+            
+            footer {
+                padding: 25px 15px;
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .day-card {
+                padding: 22px 18px;
+                border-radius: 15px;
+            }
+            
+            .day-content {
+                font-size: 1.15rem;
+                line-height: 1.65;
+            }
+            
+            .day-info {
+                font-size: 0.85rem;
+                padding: 12px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- شريط العودة -->
+    <nav class="nav-bar">
+        <a href="challenge_main.html" class="back-btn">
+            ←
+        </a>
+        <div class="nav-title" id="page-title">الأسبوع الأول</div>
+    </nav>
+
+    <!-- ترويسة التصنيف -->
+    <header class="category-header" id="category-header" style="background: linear-gradient(135deg, #8B4513, #A0522D);">
+        <h1 id="category-title">📅 الأسبوع الأول من التحدي</h1>
+        <p id="category-desc">أيام ١ إلى ٧ - رحلة البداية مع القرآن والذكر والعبادات الأساسية</p>
+    </header>
+
+    <!-- شريط تقدم الأسبوع -->
+    <div class="week-progress">
+        <div class="progress-text" id="week-progress-text">تقدم الأسبوع: ٠/٧ يوم</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="week-progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- حاوية الأيام -->
+    <main class="days-container" id="days-container">
+        <!-- الأيام تضاف بالجافاسكريبت -->
+    </main>
+
+    <footer>
+        <p>"إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى"</p>
+        <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">أخلص النية وداوم على التحدي يومياً</p>
+    </footer>
+
+    <!-- كود JavaScript -->
+    <script>
+        // قاعدة بيانات التحديات
+        const challengesByWeek = {
+            1: {
+                title: "الأسبوع الأول من التحدي",
+                desc: "أيام ١ إلى ٧ - رحلة البداية مع القرآن والذكر والعبادات الأساسية",
+                color: "linear-gradient(135deg, #8B4513, #A0522D)",
+                days: [
+                    { day: 1, challenge: "قراءة صفحة من القرآن الكريم مع التدبر في معاني الآيات", benefit: "لكل حرف حسنة، والحسنة بعشر أمثالها" },
+                    { day: 2, challenge: "الاستغفار ١٠٠ مرة بخشوع وتركيز", benefit: "يغفر الذنوب ولو كانت مثل زبد البحر" },
+                    { day: 3, challenge: "إخراج صدقة ولو قليلة سراً بينك وبين الله", benefit: "الصدقة تطفئ الخطيئة كما يطفئ الماء النار" },
+                    { day: 4, challenge: "صلاة التراويح في المسجد مع الجماعة", benefit: "من قام رمضان إيماناً واحتساباً غفر له ما تقدم من ذنبه" },
+                    { day: 5, challenge: "الدعاء لأهل بيتك وأحبابك بأسماء الله الحسنى", benefit: "الدعاء هو العبادة" },
+                    { day: 6, challenge: "الإفطار مع الأهل وتقوية روابط المحبة", benefit: "من فطر صائماً كان له مثل أجره" },
+                    { day: 7, challenge: "مساعدة أحد في عمل الخير دون انتظار مقابل", benefit: "الله في عون العبد ما كان العبد في عون أخيه" }
+                ]
+            },
+            2: {
+                title: "الأسبوع الثاني من التحدي",
+                desc: "أيام ٨ إلى ١٤ - التعمق في العبادة والدعاء والذكر",
+                color: "linear-gradient(135deg, #D2691E, #CD853F)",
+                days: [
+                    { day: 8, challenge: "تعلم حديث شريف جديد وحفظه وفهم معناه", benefit: "من حفظ على أمتي أربعين حديثاً دخل الجنة" },
+                    { day: 9, challenge: "التبرع للفقراء والمحتاجين في منطقتك", benefit: "ما نقص مال من صدقة" },
+                    { day: 10, challenge: "صلاة الضحى ركعتين على الأقل", benefit: "تصبح صدقة عن كل مفصل من مفاصلك" },
+                    { day: 11, challenge: "زيارة الأقارب أو الاتصال بهم والسؤال عن أحوالهم", benefit: "من وصل رحمه وصله الله" },
+                    { day: 12, challenge: "قراءة تفسير آية من القرآن وفهم معناها العميق", benefit: "خيركم من تعلم القرآن وعلمه" },
+                    { day: 13, challenge: "الكف عن الغيبة والنميمة طوال اليوم", benefit: "حفظ اللسان من النار" },
+                    { day: 14, challenge: "الصدقة على مسكين أو يتيم", benefit: "أنا وكافل اليتيم في الجنة هكذا" }
+                ]
+            },
+            3: {
+                title: "الأسبوع الثالث من التحدي",
+                desc: "أيام ١٥ إلى ٢١ - الصلاة والتراويح والقيام وليلة القدر",
+                color: "linear-gradient(135deg, #A0522D, #DEB887)",
+                days: [
+                    { day: 15, challenge: "قراءة سورة الكهف يوم الجمعة مع التدبر في عبرها", benefit: "نور ما بين الجمعتين" },
+                    { day: 16, challenge: "الدعاء في وقت السحر قبل الفجر", benefit: "في الثلث الأخير من الليل ينزل ربنا إلى السماء الدنيا" },
+                    { day: 17, challenge: "مساعدة الأم أو الزوجة في إعداد طعام الإفطار", benefit: "خيركم خيركم لأهله" },
+                    { day: 18, challenge: "صلاة ركعتين قيام ليل بخشوع وخضوع", benefit: "قيام الليل أفضل الصلاة بعد الفريضة" },
+                    { day: 19, challenge: "التفكر في خلق الله والطبيعة وشكر النعم", benefit: "ويتفكرون في خلق السماوات والأرض" },
+                    { day: 20, challenge: "إفطار صائم ولو بتمرة أو شربة ماء", benefit: "من فطر صائماً كان له مثل أجره" },
+                    { day: 21, challenge: "إتقان العمل والدراسة وإخلاص النية لله", benefit: "إن الله يحب إذا عمل أحدكم عملاً أن يتقنه" }
+                ]
+            },
+            4: {
+                title: "الأسبوع الرابع من التحدي",
+                desc: "أيام ٢٢ إلى ٢٨ - الاستعداد لليلة القدر والدعاء والذكر",
+                color: "linear-gradient(135deg, #8B7355, #BC8F8F)",
+                days: [
+                    { day: 22, challenge: "التسامح مع الآخرين والعفو عن الزلات", benefit: "والعافين عن الناس والله يحب المحسنين" },
+                    { day: 23, challenge: "ذكر الله تعالى كثيراً في جميع الأوقات", benefit: "ألا بذكر الله تطمئن القلوب" },
+                    { day: 24, challenge: "الدعاء للمسلمين جميعاً في كل مكان", benefit: "دعوة المسلم لأخيه بظهر الغيب مستجابة" },
+                    { day: 25, challenge: "الاعتذار لمن أخطأت في حقه أو أسأت إليه", benefit: "التوبة تجب ما قبلها" },
+                    { day: 26, challenge: "الاستعداد لليلة القدر بالدعاء والعبادة", benefit: "ليلة القدر خير من ألف شهر" },
+                    { day: 27, challenge: "زيارة قريب أو جار مريض ومواساته", benefit: "عودوا المريض، وأطعموا الجائع، وفكوا العاني" },
+                    { day: 28, challenge: "قراءة جزء من القرآن بتدبر وخشوع", benefit: "الماهر بالقرآن مع السفرة الكرام البررة" }
+                ]
+            },
+            5: {
+                title: "الأيام الأخيرة من التحدي",
+                desc: "أيام ٢٩ و٣٠ - الختام والتخطيط للمستقبل والدعاء",
+                color: "linear-gradient(135deg, #DAA520, #F4A460)",
+                days: [
+                    { day: 29, challenge: "الدعاء بخشوع في ليلة القدر، اغتناماً لفرصة العمر", benefit: "من قام ليلة القدر إيماناً واحتساباً غفر له ما تقدم من ذنبه" },
+                    { day: 30, challenge: "التخطيط لاستمرار العبادة والطاعة بعد رمضان", benefit: "أحب الأعمال إلى الله أدومها وإن قل" }
+                ]
+            }
+        };
+
+        // حالة حفظ الأيام المكتملة
+        let completedDays = JSON.parse(localStorage.getItem('ramadanChallenge')) || {};
+
+        // الحصول على رقم الأسبوع من الرابط
+        function getWeekFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return parseInt(urlParams.get('week')) || 1;
+        }
+
+        // عرض أيام الأسبوع
+        function displayWeekDays(week) {
+            const weekData = challengesByWeek[week];
+            
+            if (!weekData) {
+                window.location.href = "challenge_week.html?week=1";
+                return;
+            }
+            
+            // تحديث العناوين
+            document.getElementById('page-title').textContent = weekData.title;
+            document.getElementById('category-title').textContent = weekData.title;
+            document.getElementById('category-desc').textContent = weekData.desc;
+            document.getElementById('category-header').style.background = weekData.color;
+            
+            // عرض الأيام
+            const container = document.getElementById('days-container');
+            container.innerHTML = '';
+            
+            let completedCount = 0;
+            
+            weekData.days.forEach((dayData, index) => {
+                const dayId = `week${week}_day${dayData.day}`;
+                const isCompleted = completedDays[dayId] || false;
+                
+                if (isCompleted) completedCount++;
+                
+                const card = document.createElement('div');
+                card.className = 'day-card';
+                card.innerHTML = `
+                    <div class="day-number">${dayData.day}</div>
+                    <div class="day-content">${dayData.challenge}</div>
+                    <div class="day-details">
+                        <div class="day-info">${dayData.benefit}</div>
+                        <button class="mark-completed ${isCompleted ? 'completed' : ''}" data-id="${dayId}">
+                            <i class="fas fa-${isCompleted ? 'check-circle' : 'circle'}"></i>
+                            ${isCompleted ? 'مكتمل ✓' : 'تأشير اليوم'}
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            
+            // تحديث شريط التقدم
+            updateWeekProgress(week, completedCount, weekData.days.length);
+            
+            // إضافة مستمعي الأحداث
+            addEventListeners();
+        }
+
+        // تحديث شريط تقدم الأسبوع
+        function updateWeekProgress(week, completed, total) {
+            const percent = Math.round((completed / total) * 100);
+            document.getElementById('week-progress-text').textContent = 
+                `تقدم الأسبوع: ${completed}/${total} يوم (${percent}%)`;
+            document.getElementById('week-progress-fill').style.width = `${percent}%`;
+        }
+
+        // إضافة مستمعي الأحداث للأزرار
+        function addEventListeners() {
+            document.querySelectorAll('.mark-completed').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const dayId = this.getAttribute('data-id');
+                    const week = getWeekFromURL();
+                    toggleCompletion(dayId, week);
+                });
+            });
+        }
+
+        // تبديل حالة الإكمال
+        function toggleCompletion(dayId, week) {
+            completedDays[dayId] = !completedDays[dayId];
+            localStorage.setItem('ramadanChallenge', JSON.stringify(completedDays));
+            
+            // رسالة تأكيد
+            if (completedDays[dayId]) {
+                const dayNum = dayId.split('_')[1]?.replace('day', '') || '';
+                setTimeout(() => {
+                    alert(`🎉 أحسنت! لقد أكملت تحدي اليوم ${dayNum}`);
+                }, 300);
+            }
+            
+            displayWeekDays(week);
+        }
+
+        // عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const week = getWeekFromURL();
+            displayWeekDays(week);
+        });
+    </script>
+</body>
+</html>

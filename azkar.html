@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأذكار اليومية 🌙 - مكتبتي الرمضانية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Tajawal", sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #f0f7ee, #e8f4e8);
+            min-height: 100vh;
+            color: #333;
+            padding: 0;
+        }
+
+        /* شريط العودة */
+        .nav-bar {
+            background: linear-gradient(135deg, #1a5c36 0%, #2e7d32 100%);
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(26, 92, 54, 0.2);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-3px);
+        }
+
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            flex-grow: 1;
+        }
+
+        /* ترويسة الصفحة */
+        .page-header {
+            text-align: center;
+            padding: 30px 20px;
+            color: #1a5c36;
+            background: white;
+            margin-bottom: 5px;
+            border-bottom: 2px solid #e9d8a6;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* حاوية الخانات الطويلة */
+        .categories-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px 15px 40px;
+        }
+
+        /* الخانة الطويلة */
+        .category-card {
+            background: white;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+            display: block;
+            text-decoration: none;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(42, 157, 143, 0.15);
+            border-color: #2A9D8F;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #2A9D8F, #21867A);
+            color: white;
+            padding: 22px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .category-icon {
+            font-size: 1.8rem;
+            margin-left: 15px;
+        }
+
+        .category-desc {
+            padding: 20px 25px;
+            color: #555;
+            line-height: 1.6;
+            border-top: 1px solid #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-count {
+            background: #f0f7ee;
+            color: #2A9D8F;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* تخصيص ألوان الخانات */
+        .category-card:nth-child(1) .category-header {
+            background: linear-gradient(135deg, #FF9F1C, #FFBF69); /* برتقالي للصباح */
+        }
+        
+        .category-card:nth-child(2) .category-header {
+            background: linear-gradient(135deg, #7209B7, #9D4EDD); /* بنفسجي للمساء */
+        }
+        
+        .category-card:nth-child(3) .category-header {
+            background: linear-gradient(135deg, #3A86FF, #6AA8FF); /* أزرق للصلاة */
+        }
+        
+        .category-card:nth-child(4) .category-header {
+            background: linear-gradient(135deg, #FF595E, #FF8A8A); /* وردي للنوم */
+        }
+        
+        .category-card:nth-child(5) .category-header {
+            background: linear-gradient(135deg, #1982C4, #40A8F5); /* أزرق فاتح للاستيقاظ */
+        }
+
+        /* التذييل */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #2A9D8F;
+            font-size: 0.95rem;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 20px;
+        }
+
+        /* تجاوب الجوال */
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+            
+            .nav-bar {
+                padding: 15px;
+            }
+            
+            .page-header {
+                padding: 25px 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+            
+            .categories-container {
+                padding: 10px 10px 30px;
+            }
+            
+            .category-header {
+                padding: 20px;
+            }
+            
+            .category-title {
+                font-size: 1.3rem;
+            }
+            
+            .category-desc {
+                padding: 18px 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .category-count {
+                align-self: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .category-header {
+                padding: 18px;
+            }
+            
+            .category-title {
+                font-size: 1.2rem;
+            }
+            
+            .category-icon {
+                font-size: 1.5rem;
+            }
+            
+            .category-desc {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- شريط العودة -->
+    <nav class="nav-bar">
+        <a href="index.html" class="back-btn">
+            ←
+        </a>
+        <div class="nav-title">الأذكار اليومية</div>
+    </nav>
+
+    <!-- ترويسة الصفحة -->
+    <header class="page-header">
+        <h1>🌙 الأذكار اليومية</h1>
+        <p>اختر نوع الأذكار الذي تريد قراءته وذكر الله تعالى</p>
+    </header>
+
+    <!-- الخانات الطويلة -->
+    <main class="categories-container">
+        <!-- خانة أذكار الصباح -->
+        <a href="azkar_category.html?type=morning" class="category-card">
+            <div class="category-header">
+                <div class="category-title">أذكار الصباح</div>
+                <div class="category-icon">☀️</div>
+            </div>
+            <div class="category-desc">
+                <span>أذكار تقال من طلوع الفجر إلى زوال الشمس</span>
+                <span class="category-count">8 أذكار</span>
+            </div>
+        </a>
+
+        <!-- خانة أذكار المساء -->
+        <a href="azkar_category.html?type=evening" class="category-card">
+            <div class="category-header">
+                <div class="category-title">أذكار المساء</div>
+                <div class="category-icon">🌙</div>
+            </div>
+            <div class="category-desc">
+                <span>أذكار تقال من بعد العصر إلى غروب الشمس</span>
+                <span class="category-count">7 أذكار</span>
+            </div>
+        </a>
+
+        <!-- خانة أذكار بعد الصلاة -->
+        <a href="azkar_category.html?type=prayer" class="category-card">
+            <div class="category-header">
+                <div class="category-title">أذكار بعد الصلاة</div>
+                <div class="category-icon">🕌</div>
+            </div>
+            <div class="category-desc">
+                <span>أذكار تقال بعد الانتهاء من الصلوات المفروضة</span>
+                <span class="category-count">5 أذكار</span>
+            </div>
+        </a>
+
+        <!-- خانة أذكار النوم -->
+        <a href="azkar_category.html?type=sleep" class="category-card">
+            <div class="category-header">
+                <div class="category-title">أذكار النوم</div>
+                <div class="category-icon">😴</div>
+            </div>
+            <div class="category-desc">
+                <span>أذكار تقال قبل النوم للتحصين والحفظ</span>
+                <span class="category-count">6 أذكار</span>
+            </div>
+        </a>
+
+        <!-- خانة أذكار الاستيقاظ -->
+        <a href="azkar_category.html?type=waking" class="category-card">
+            <div class="category-header">
+                <div class="category-title">أذكار الاستيقاظ</div>
+                <div class="category-icon">⏰</div>
+            </div>
+            <div class="category-desc">
+                <span>أذكار تقال عند الاستيقاظ من النوم</span>
+                <span class="category-count">4 أذكار</span>
+            </div>
+        </a>
+    </main>
+
+    <footer>
+        <p>"وذكر فإن الذكرى تنفع المؤمنين" - الحجرات ٥٥</p>
+        <p style="font-size: 0.9rem; margin-top: 8px; color: #777;">حافظ على الأذكار، فهي نور في الدنيا والآخرة</p>
+    </footer>
+</body>
+</html>
